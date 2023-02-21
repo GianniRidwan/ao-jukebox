@@ -24,4 +24,6 @@ Route::post('/register-user', [CustomAuthController::class,'registerUser'])->nam
 Route::post('/login-user', [CustomAuthController::class,'loginUser'])->name('login-user');
 Route::get('/dashboard', [CustomAuthController::class,'dashboard'])->middleware('isLoggedIn');
 Route::get('/logout', [CustomAuthController::class,'logout']);
-Route::get('/genrePage', [GenreController::class,'genrePage'])->middleware('isLoggedIn');
+Route::get('/genre', [GenreController::class,'index'])->middleware('isLoggedIn');
+
+Route::get('/song/{id}', 'App\Http\Controllers\SongController@index');

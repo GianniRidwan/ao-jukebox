@@ -8,41 +8,33 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
-<main class="flex-shrink-0">
-<div id="container">
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 justify-content-center">
-	<span class="w-100 py-1 navbar-text font-weight-bold text-center text-white text-capitalize">
-        Welcome {{$data->name}}! &nbsp;&nbsp;
-        <a class="btn text-white bg-danger" style="margin-right:10px;" href="logout">Logout</a>
-    </span>
-</nav>
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4" style="margin-top:20px;">
-                <h4>Dashboard</h4>
-                <a class="btn text-white bg-danger" style="margin-right:10px;" href="genre">Genre Page</a>
-
-                <hr>
+            <a class="btn text-white bg-danger" style="margin-right:10px;" href="/genre">Genre Page</a>
+                <h4 style="margin-top:20px;">Songs Page</h4>
                 <table class="table">
                     <thead>
                         <th>Name</th>
-                        <th>Email</th>
-                        <th>Action</th>
+                        <th>Artist</th>
+                        <th>Duration</th>
                     </thead>
                     <tbody>
+                        @foreach ($songs as $song)
+                        @if ($song->genre_id == $id)
                         <tr>
-                            <td>{{$data->name}}</td>
-                            <td>{{$data->email}}</td>
-                            <td><a href="logout">Logout</a></td>
+                            <td>{{$song->song_name}}</td>
+                            <td>{{$song->artist_name}}</td>
+                            <td>{{$song->duration}}</td>
                         </tr>
+                        @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-</main>
-<footer class="footer text-white-50 text-center  mt-auto py-2 bg-dark fixed-bottom">&copy; Gianni Ridwan</footer>
-</div>
+    <footer class="footer text-white-50 text-center mt-auto py-2 bg-dark fixed-bottom">&copy; Gianni Ridwan</footer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </html>

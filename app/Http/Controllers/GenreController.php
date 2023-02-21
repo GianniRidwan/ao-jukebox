@@ -9,9 +9,9 @@ use Session;
 
 class GenreController extends Controller
 {
-    public function genrePage() {
+    public function index() {
         $genres = Genre::get();
         $data = array();
-        return view('genre.genre', ['genres' => $genres], compact('data'));  
+        return view('genre.index', ['genres' => $genres], compact('data'));  
     }
 }
