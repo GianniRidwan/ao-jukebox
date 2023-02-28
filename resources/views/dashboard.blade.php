@@ -21,6 +21,7 @@
             <div class="col-md-4 col-md-offset-4" style="margin-top:20px;">
                 <h4>Dashboard</h4>
                 <a class="btn text-white bg-danger" style="margin-right:10px;" href="genre">Genre Page</a>
+                <a class="btn text-white bg-danger" style="margin-right:10px;" href="playlist">Playlist Page</a>
 
                 <hr>
                 <table class="table">
