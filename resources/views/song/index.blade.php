@@ -20,13 +20,69 @@
                         <th>Duration</th>
                     </thead>
                     <tbody>
+                        <!-- Print all songs from selected genre -->
                         @foreach ($songs as $song)
                         @if ($song->genre_id == $id)
                         <tr>
                             <td>{{$song->song_name}}</td>
                             <td>{{$song->artist_name}}</td>
                             <td>{{$song->duration}}</td>
+                            <!-- Button trigger modal -->
+                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="{{$song->id}}">Add</button></td>
                         </tr>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- Add song to temporary playlist -->
+                                    <form method="post" action="{{url('add-Song')}}">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add song to playlist</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            @csrf
+                                            <label for="add">Add this song to the temporary playlist</label>                                    
+                                            <input type="hidden" name="getSong" value="" id="hidden">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" name="add" value="add" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                                        </div>
+                                    </form>
+
+                                    <!-- Add song to existing playlist -->
+                                    <form action="{{url('add-Song-to-playlist')}}" method="POST">
+                                        <div class="modal-body">
+                                            @csrf                            
+                                            <label class="mb-2" for="add2">Add this song to the selected playlist:</label> 
+                                            <input type="hidden" name="getSong2" value="" id="hidden2">
+                                                <select class="mb-2" name="playlistId" id="">
+                                                    @foreach($exPlayLists as $playlistNew)
+                                                    @if ($playlistNew->user_id == Session::get('loginId'))
+                                                    <option value="{{$playlistNew->id}}">{{$playlistNew->name}}</option>
+                                                    @endif
+                                                    @endforeach
+                                                </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button class="btn btn-primary" type="submit" value="add" name="add2">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            var btn = document.getElementById("{{$song->id}}");
+                            var songId = document.getElementById("hidden2");
+
+                            btn.onclick = function() {
+                                document.getElementById('hidden').value = '{{$song->id}}';
+                                songId.value = "{{$song->id}}";
+                            }
+                        </script>
                         @endif
                         @endforeach
                     </tbody>

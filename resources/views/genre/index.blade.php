@@ -13,6 +13,7 @@
             <div class="col-md-4 col-md-offset-4" style="margin-top:20px;">
             <a class="btn text-white bg-danger" style="margin-right:10px;" href="dashboard">Home Page</a>
                 <h4 style="margin-top:20px;">Genres Page</h4>
+                <!-- Print all genres -->
             @foreach ($genres as $gen)
                 <div class="card my-3" style="width: 15rem; display:inline-block;">
                     <a href="{{url('song/'.$gen->id)}}" class="btn btn-success">

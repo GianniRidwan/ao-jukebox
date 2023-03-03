@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Unique;
 use App\Models\User;
 use Hash;
 use Session;
+use App\Models\Song;
 
 class CustomAuthController extends Controller
 {
@@ -49,16 +51,21 @@ class CustomAuthController extends Controller
             return back()->with('fail', 'This email is not registered');
         }
     }
+
     public function dashboard() {
         $data = array();
         if (Session::has('loginId')) {
-            $data = User::where('id','=', Session::get('loginId'))->first();
+            $songs = Song::get();
+            $terminalsongs = app('App\Http\Controllers\PlaylistSessionController')->getList();
+            $data = User::where('id','=',app('App\Http\Controllers\PlaylistSessionController')->getID())->first();
         }
-        return view('dashboard', compact('data'));
+        return view('dashboard', compact('data', 'songs' ,'terminalsongs'));
     }
+
     public function logout() {
         if (Session::get('loginId')) {
-            Session::pull('loginId');
+            app('App\Http\Controllers\PlaylistSessionController')->deleteSessionId();
+            app('App\Http\Controllers\PlaylistSessionController')->deleteSession();
             return redirect('login');
         }
     }
